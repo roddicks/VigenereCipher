@@ -203,6 +203,7 @@ public class Main {
     private static String breakCipher(String ciphertext, int keyLength) {
         //Initialize a list of strings
         List<String> strList = new ArrayList<>(keyLength);
+        char[] key = new char[keyLength];
         //Probability of each letter appearing in English
         double expected[] = {0.08167,0.01492,0.02782,0.04253,0.12702,
                 0.02228,0.02015,0.06094,0.06966,0.00153,0.00772,
@@ -243,8 +244,11 @@ public class Main {
                 if(chiSq < lowChiSq) {
                     lowChiSq = chiSq;
                     bestShift = s;
+                    //gets the letter of the key used for this shift
+                    key[i] = (char)((26 - shifts.indexOf(s)) + 'A');
                 }
             }
+
             strList.add(i, bestShift);
         }
 
@@ -257,6 +261,7 @@ public class Main {
             }
         }
 
+        System.out.println(String.valueOf(key));
         return sb.toString();
     }
 
